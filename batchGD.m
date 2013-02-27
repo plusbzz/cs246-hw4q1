@@ -1,22 +1,28 @@
 function [W,b] = batchGD(X,Y,W,b,C,eta)
 %BATCHGD: One step of batch gradient descent
-    M = size(X,1);
+    N = size(X,1);
     D = size(X,2);    
-    gradB = 0;
     
+    preds = Y.*(X*W+b);
+    
+    % Update W
     for j = 1:D
-        w_j = W(j);       
         gradLw = 0;
-        % Now calculate batch loss function
-        for i = 1:M
-            pred = Y(i)*(X(i,:)*W + b);
-            if pred >= 1
+        for i = 1:N  % gradient of loss function
+            if preds(i) < 1
                 gradLw = gradLw - Y(i)*X(i,j);
-                gradB = gradB - Y(i)*b;
             end
         end
-        W(j) = w_j - eta*(w_j+C*gradLw); 
+        W(j) = W(j) - eta*(W(j)+C*gradLw); 
     end
-    b = b - eta*gradB;
+    
+    %Update b
+    gradB = 0;
+    for i = 1:N
+       if preds(i) < 1
+            gradB = gradB - Y(i)*b;
+       end
+    end
+    b = b - eta*C*gradB;
 end
 
