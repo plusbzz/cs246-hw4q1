@@ -35,7 +35,7 @@ function [stochasticData,W,b] = stochasticGD(X,Y,C)
             gradB = 0;
             pred = y*(x*W + b);
             if pred < 1
-                gradB = gradB - y*b;
+                gradB = gradB - y;
             end
             b = b - eta*C*gradB;
             

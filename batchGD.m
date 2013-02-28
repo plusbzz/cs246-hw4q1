@@ -34,7 +34,7 @@ function [batchData,W,b] = batchGD(X,Y,C)
         gradB = 0;
         for i = 1:N
            if preds(i) < 1
-                gradB = gradB - Y(i)*b;
+                gradB = gradB - Y(i);
            end
         end
         b = b - eta*C*gradB;

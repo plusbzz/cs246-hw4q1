@@ -39,7 +39,7 @@ function [minibatchData,W,b] = minibatchGD(X,Y,C)
             gradB = 0;
             for i = batch
                if preds(i) < 1
-                    gradB = gradB - Y(i)*b;
+                    gradB = gradB - Y(i);
                end
             end        
             b = b - eta*C*gradB;
