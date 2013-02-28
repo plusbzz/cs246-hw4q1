@@ -1,12 +1,12 @@
-function minibatchData = minibatchGD(X,Y)
+function [minibatchData,W,b] = minibatchGD(X,Y,C)
 %MINIBATCHDATA
 
     N = size(X,1);
     D = size(X,2);    
     
-    C = 100;
-    eta = 0.0001;
-    epsilon = 0.001;
+    eta = 0.000001;
+    epsilon = 0.01;
+    batchsize = 10;
     W = zeros(D,1);
     b = 0;
 
@@ -19,26 +19,31 @@ function minibatchData = minibatchGD(X,Y)
 
     while ~converged
         idx = randperm(N);
-        for i = idx
+
+        for s = 1:batchsize:N
             k = k+1;
-            x = X(i,:);
-            y = Y(i);
+            preds = Y.*(X*W+b);
+            batch = idx(s):idx(min(N,s+batchsize-1));
+            %Update W
             for j = 1:D
                 gradLw = 0;
-                pred = y*(x*W + b);
-                if pred < 1
-                    gradLw = -y*x(j);
+                for i = batch % gradient of loss function
+                    if preds(i) < 1
+                        gradLw = gradLw - Y(i)*X(i,j);
+                    end
                 end
                 W(j) = W(j) - eta*(W(j)+C*gradLw); 
             end
-
-            gradB = 0;
-            pred = y*(x*W + b);
-            if pred < 1
-                gradB = gradB - y*b;
-            end
-            b = b - eta*C*gradB;
             
+            %Update b
+            gradB = 0;
+            for i = batch
+               if preds(i) < 1
+                    gradB = gradB - Y(i)*b;
+               end
+            end        
+            b = b - eta*C*gradB;
+
             currentCost = costFunc(X,Y,W,b,C);
             DPerc = (100*abs(currentCost - lastCost))/abs(lastCost);
             DCost = 0.5*(DCost + DPerc);

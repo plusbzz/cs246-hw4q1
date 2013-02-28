@@ -1,10 +1,9 @@
-function stochasticData = stochasticGD(X,Y)
+function [stochasticData,W,b] = stochasticGD(X,Y,C)
 %STOCHASTICGD
 
     N = size(X,1);
     D = size(X,2);    
     
-    C = 100;
     eta = 0.0001;
     epsilon = 0.001;
     W = zeros(D,1);
@@ -17,8 +16,9 @@ function stochasticData = stochasticGD(X,Y)
     DCost = 0;
     tic;
 
-    while ~converged
+    while ~converged %&& k < 20000
         idx = randperm(N);
+
         for i = idx
             k = k+1;
             x = X(i,:);
@@ -49,6 +49,9 @@ function stochasticData = stochasticGD(X,Y)
                 break;
             end
         end
+        DPerc
+        DCost
+        k
     end
 end
 

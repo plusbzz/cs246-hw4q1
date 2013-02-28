@@ -1,10 +1,9 @@
-function batchData = batchGD(X,Y)
+function [batchData,W,b] = batchGD(X,Y,C)
 %BATCHGD
     % Batch gradient descent
     N = size(X,1);
     D = size(X,2);    
     
-    C = 100;
     eta = 0.0000003;
     epsilon = 0.25;
     W = zeros(D,1);
