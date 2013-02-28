@@ -1,5 +1,5 @@
-function stochasticData = stochasticGD(X,Y)
-%STOCHASTICGD
+function minibatchData = minibatchGD(X,Y)
+%MINIBATCHDATA
 
     N = size(X,1);
     D = size(X,2);    
@@ -13,7 +13,7 @@ function stochasticData = stochasticGD(X,Y)
     lastCost = costFunc(X,Y,W,b,C);
     k = 0;
     converged = false;
-    stochasticData = [k lastCost 0];
+    minibatchData = [k lastCost 0];
     DCost = 0;
     tic;
 
@@ -42,7 +42,7 @@ function stochasticData = stochasticGD(X,Y)
             currentCost = costFunc(X,Y,W,b,C);
             DPerc = (100*abs(currentCost - lastCost))/abs(lastCost);
             DCost = 0.5*(DCost + DPerc);
-            stochasticData = [stochasticData; k currentCost toc];   
+            minibatchData = [minibatchData; k currentCost toc];   
             lastCost = currentCost;
             if DCost < epsilon
                 converged = true;
