@@ -1,6 +1,5 @@
 function batchData = batchGD(X,Y)
-%BATCHGD: One step of batch gradient descent
-
+%BATCHGD
     % Batch gradient descent
     N = size(X,1);
     D = size(X,2);    
@@ -48,9 +47,6 @@ function batchData = batchGD(X,Y)
         if DPerc < epsilon
             converged = true;
         end
-    end
-
-
-       
+    end     
 end
 
