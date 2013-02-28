@@ -8,7 +8,7 @@ function cost = costFunc(X,Y,W,b,C)
     preds = Y.*(X*W+b);
     Lw = 0;
     for i = 1:N
-        Lw = Lw + max(1-preds(i),0-preds(i));
+        Lw = Lw + max(0,1-preds(i));
     end
     cost = cost + C*Lw; 
 end
