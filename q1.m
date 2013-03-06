@@ -55,3 +55,9 @@ for C=Cs
     errors = [errors;C error];
 end
 
+plot(errors(:,1),errors(:,2);
+title('Plot of percent test error vs regularization parameter C');
+grid();
+xlabel('C');
+ylabel('Percent test error');
+saveas(gcf,'q1f.png');
