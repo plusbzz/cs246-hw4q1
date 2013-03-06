@@ -10,7 +10,7 @@ function [minibatchData,W,b] = minibatchGD(X,Y,C)
     W = zeros(D,1);
     b = 0;
 
-    lastCost = costFunc(X,Y,W,b,C);
+    lastCost = costFunc(X,Y,W,b,C)
     k = 0;
     converged = false;
     minibatchData = [k lastCost 0];
@@ -22,8 +22,8 @@ function [minibatchData,W,b] = minibatchGD(X,Y,C)
 
         for s = 1:batchsize:N
             k = k+1;
+            batch = idx(s:min(N,s+batchsize-1));
             preds = Y.*(X*W+b);
-            batch = idx(s):idx(min(N,s+batchsize-1));
             %Update W
             for j = 1:D
                 gradLw = 0;
