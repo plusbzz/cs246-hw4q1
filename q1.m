@@ -38,12 +38,11 @@ hold on;
 plot(minibatchData(:,1),minibatchData(:,3),'-.','linewidth',1.5);
 hold off;
 grid();
-title('Plot of cost vs number of iterations');
+title('Plot of time vs number of iterations');
 xlabel('Number of iterations')
-ylabel('Cost');
+ylabel('Elapsed time in seconds');
 legend('Batch','Stochastic','Minibatch');
 saveas(gcf,'q1e_time.png');
-
 
 
 Cs = [1 10 50 100 200 300 400 500];
